@@ -59,7 +59,7 @@ class TreeList extends Component {
         const style = (this.props.style) ? this.props.style : {}
         const startingDepth = (this.props.startingDepth) ? this.props.startingDepth : 1
         const expandedListItems = (this.props.expandedListItems) ? this.props.expandedListItems : this.state.expandedListItems
-        const activeListItem = (this.props.activeListItem) ? this.props.activeListItem : this.state.activeListItem
+        const activeListItem = (this.props.activeListItem !== undefined) ? this.props.activeListItem : this.state.activeListItem
         const listHeight = (this.props.listHeight) ? this.props.listHeight : '48px'
         const {haveSearchbar, handleSearch} = this.props
 
