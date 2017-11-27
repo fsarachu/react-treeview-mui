@@ -114,7 +114,7 @@ var TreeList = function (_Component) {
             var style = this.props.style ? this.props.style : {};
             var startingDepth = this.props.startingDepth ? this.props.startingDepth : 1;
             var expandedListItems = this.props.expandedListItems ? this.props.expandedListItems : this.state.expandedListItems;
-            var activeListItem = this.props.activeListItem ? this.props.activeListItem : this.state.activeListItem;
+            var activeListItem = this.props.activeListItem !== undefined ? this.props.activeListItem : this.state.activeListItem;
             var listHeight = this.props.listHeight ? this.props.listHeight : '48px';
             var _props2 = this.props,
                 haveSearchbar = _props2.haveSearchbar,
