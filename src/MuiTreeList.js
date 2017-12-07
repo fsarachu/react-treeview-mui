@@ -151,7 +151,11 @@ var TreeList = function (_Component) {
                             left,
                             _react2.default.createElement(
                                 'span',
-                                { style: { display: 'inline-block', backgroundColor: 'rgba(255,235,59,0.5)', padding: '3px' } },
+                                { style: {
+                                        display: 'inline-block',
+                                        backgroundColor: 'rgba(255,235,59,0.5)',
+                                        padding: '3px'
+                                    } },
                                 middle
                             ),
                             right
@@ -177,7 +181,7 @@ var TreeList = function (_Component) {
                         primaryText: listItem._primaryText,
                         style: Object.assign({}, listItem._styles.root),
                         leftIcon: getLeftIcon(listItem, _this2.props.useFolderIcons),
-                        rightIcon: !listItem.children ? null : expandedListItems.indexOf(i) === -1 ? _react2.default.createElement(_expandMore2.default, null) : _react2.default.createElement(_expandLess2.default, null),
+                        rightIcon: !listItem.children && !listItem.hasChildren ? null : expandedListItems.indexOf(i) === -1 ? _react2.default.createElement(_expandMore2.default, null) : _react2.default.createElement(_expandLess2.default, null),
                         onTouchTap: function onTouchTap() {
                             if (listItem.disabled) return;
                             _this2.handleTouchTap(listItem, i);
@@ -219,7 +223,8 @@ var TreeList = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _reactTransitionGroup.CSSTransitionGroup,
-                    { transitionName: 'tree-list', transitionEnterTimeout: 300, transitionLeaveTimeout: 150 },
+                    { transitionName: 'tree-list', transitionEnterTimeout: 300,
+                        transitionLeaveTimeout: 150 },
                     listItemsJSX
                 )
             );
