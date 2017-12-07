@@ -119,7 +119,7 @@ var TreeList = function (_Component) {
             var startingDepth = this.props.startingDepth ? this.props.startingDepth : 1;
             var expandedListItems = this.props.expandedListItems ? this.props.expandedListItems : this.state.expandedListItems;
             var activeListItem = this.props.activeListItem !== undefined ? this.props.activeListItem : this.state.activeListItem;
-            var listHeight = this.props.listHeight ? this.props.listHeight : '48px';
+            var listHeight = this.props.listHeight ? this.props.listHeight : '32px';
             var _props2 = this.props,
                 haveSearchbar = _props2.haveSearchbar,
                 handleSearch = _props2.handleSearch;
@@ -184,15 +184,30 @@ var TreeList = function (_Component) {
                 var rightIcon = null;
 
                 if (listItem.isLoading) {
-                    rightIcon = _react2.default.createElement(_CircularProgress2.default, { size: 24 });
+                    rightIcon = _react2.default.createElement(_CircularProgress2.default, { size: 24, style: { margin: 4 } });
                 } else {
-                    rightIcon = !listItem.children && !listItem.hasChildren ? null : expandedListItems.indexOf(i) === -1 ? _react2.default.createElement(_expandMore2.default, null) : _react2.default.createElement(_expandLess2.default, null);
+                    rightIcon = !listItem.children && !listItem.hasChildren ? null : expandedListItems.indexOf(i) === -1 ? _react2.default.createElement(_expandMore2.default, { style: { margin: 4 } }) : _react2.default.createElement(_expandLess2.default, { style: { margin: 4 } });
                 }
 
                 if (listItem._shouldRender) {
                     return _react2.default.createElement(_ListItem2.default, {
                         key: 'treeListItem-' + i,
-                        primaryText: listItem._primaryText,
+                        primaryText: _react2.default.createElement(
+                            'div',
+                            {
+                                title: listItem._primaryText,
+                                style: {
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis'
+                                }
+                            },
+                            listItem._primaryText
+                        ),
+                        innerDivStyle: {
+                            paddingTop: 8,
+                            paddingBottom: 8
+                        },
                         style: Object.assign({}, listItem._styles.root),
                         leftIcon: getLeftIcon(listItem, _this2.props.useFolderIcons),
                         rightIcon: rightIcon,

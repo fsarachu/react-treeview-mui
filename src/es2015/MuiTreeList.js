@@ -63,7 +63,7 @@ class TreeList extends Component {
         const startingDepth = (this.props.startingDepth) ? this.props.startingDepth : 1;
         const expandedListItems = (this.props.expandedListItems) ? this.props.expandedListItems : this.state.expandedListItems;
         const activeListItem = (this.props.activeListItem !== undefined) ? this.props.activeListItem : this.state.activeListItem;
-        const listHeight = (this.props.listHeight) ? this.props.listHeight : '48px';
+        const listHeight = (this.props.listHeight) ? this.props.listHeight : '32px';
         const {haveSearchbar, handleSearch} = this.props;
 
         let listItemsModified = listItems
@@ -120,17 +120,32 @@ class TreeList extends Component {
                 let rightIcon = null;
 
                 if (listItem.isLoading) {
-                    rightIcon = <CircularProgress size={24}/>;
+                    rightIcon = <CircularProgress size={24} style={{margin: 4}}/>;
                 } else {
                     rightIcon = (!listItem.children && !listItem.hasChildren) ? (null) : (expandedListItems.indexOf(i) === -1) ? (
-                        <OpenIcon/>) : (<CloseIcon/>)
+                        <OpenIcon style={{margin: 4}}/>) : (<CloseIcon style={{margin: 4}}/>)
                 }
 
                 if (listItem._shouldRender) {
                     return (
                         <ListItem
                             key={'treeListItem-' + i}
-                            primaryText={listItem._primaryText}
+                            primaryText={
+                                <div
+                                    title={listItem._primaryText}
+                                    style={{
+                                        whiteSpace: 'nowrap',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis'
+                                    }}
+                                >
+                                    {listItem._primaryText}
+                                </div>
+                            }
+                            innerDivStyle={{
+                                paddingTop: 8,
+                                paddingBottom: 8,
+                            }}
                             style={Object.assign({}, listItem._styles.root)}
                             leftIcon={getLeftIcon(listItem, this.props.useFolderIcons)}
                             rightIcon={rightIcon}
