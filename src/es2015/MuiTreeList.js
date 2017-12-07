@@ -4,6 +4,7 @@ import {CSSTransitionGroup} from 'react-transition-group';
 import ListItem from 'material-ui/List/ListItem';
 import TextField from 'material-ui/TextField';
 import OpenIcon from 'material-ui/svg-icons/navigation/expand-more';
+import CircularProgress from 'material-ui/CircularProgress';
 import CloseIcon from 'material-ui/svg-icons/navigation/expand-less';
 import FolderIcon from 'material-ui/svg-icons/file/folder';
 import FileIcon from 'material-ui/svg-icons/editor/insert-drive-file';
@@ -111,9 +112,20 @@ class TreeList extends Component {
                     return listItem;
                 });
         }
+
         // JSX: array of listItems
         const listItemsJSX = listItemsModified
             .map((listItem, i) => {
+
+                let rightIcon = null;
+
+                if (listItem.isLoading) {
+                    rightIcon = <CircularProgress size={24}/>;
+                } else {
+                    rightIcon = (!listItem.children && !listItem.hasChildren) ? (null) : (expandedListItems.indexOf(i) === -1) ? (
+                        <OpenIcon/>) : (<CloseIcon/>)
+                }
+
                 if (listItem._shouldRender) {
                     return (
                         <ListItem
@@ -121,8 +133,7 @@ class TreeList extends Component {
                             primaryText={listItem._primaryText}
                             style={Object.assign({}, listItem._styles.root)}
                             leftIcon={getLeftIcon(listItem, this.props.useFolderIcons)}
-                            rightIcon={(!listItem.children && !listItem.hasChildren) ? null : (expandedListItems.indexOf(i) === -1) ?
-                                <OpenIcon/> : <CloseIcon/>}
+                            rightIcon={rightIcon}
                             onTouchTap={() => {
                                 if (listItem.disabled) return
                                 this.handleTouchTap(listItem, i)

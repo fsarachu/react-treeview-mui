@@ -28,6 +28,10 @@ var _expandMore = require('material-ui/svg-icons/navigation/expand-more');
 
 var _expandMore2 = _interopRequireDefault(_expandMore);
 
+var _CircularProgress = require('material-ui/CircularProgress');
+
+var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
+
 var _expandLess = require('material-ui/svg-icons/navigation/expand-less');
 
 var _expandLess2 = _interopRequireDefault(_expandLess);
@@ -173,15 +177,25 @@ var TreeList = function (_Component) {
                     return listItem;
                 });
             }
+
             // JSX: array of listItems
             var listItemsJSX = listItemsModified.map(function (listItem, i) {
+
+                var rightIcon = null;
+
+                if (listItem.isLoading) {
+                    rightIcon = _react2.default.createElement(_CircularProgress2.default, { size: 24 });
+                } else {
+                    rightIcon = !listItem.children && !listItem.hasChildren ? null : expandedListItems.indexOf(i) === -1 ? _react2.default.createElement(_expandMore2.default, null) : _react2.default.createElement(_expandLess2.default, null);
+                }
+
                 if (listItem._shouldRender) {
                     return _react2.default.createElement(_ListItem2.default, {
                         key: 'treeListItem-' + i,
                         primaryText: listItem._primaryText,
                         style: Object.assign({}, listItem._styles.root),
                         leftIcon: getLeftIcon(listItem, _this2.props.useFolderIcons),
-                        rightIcon: !listItem.children && !listItem.hasChildren ? null : expandedListItems.indexOf(i) === -1 ? _react2.default.createElement(_expandMore2.default, null) : _react2.default.createElement(_expandLess2.default, null),
+                        rightIcon: rightIcon,
                         onTouchTap: function onTouchTap() {
                             if (listItem.disabled) return;
                             _this2.handleTouchTap(listItem, i);
